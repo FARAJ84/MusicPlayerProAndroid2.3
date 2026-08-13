@@ -25,19 +25,19 @@ jobs:
           echo "ANDROID_SDK_ROOT=$HOME/android-sdk" >> $GITHUB_ENV
           echo "$HOME/android-sdk/platform-tools" >> $GITHUB_PATH
 
-      - name: Manually install Build-Tools 17.0.0
+      - name: Manually install Build-Tools 19.1.0
         run: |
           mkdir -p "$HOME/android-sdk/build-tools"
           cd /tmp
-          curl -f -sSL -o build-tools-17.zip https://dl.google.com/android/repository/build-tools_r17-linux.zip
+          curl -f -sSL -o build-tools-19.zip https://dl.google.com/android/repository/build-tools_r19.1-linux.zip
           echo "--- curl exit code: $? ---"
-          ls -la build-tools-17.zip
-          unzip -q build-tools-17.zip -d bt_extracted
+          ls -la build-tools-19.zip
+          unzip -q build-tools-19.zip -d bt_extracted
           echo "--- extracted contents: ---"
           ls -la bt_extracted
           BT_DIR=$(ls bt_extracted | head -n 1)
-          mv "bt_extracted/$BT_DIR" "$HOME/android-sdk/build-tools/17.0.0"
-          ls "$HOME/android-sdk/build-tools/17.0.0"
+          mv "bt_extracted/$BT_DIR" "$HOME/android-sdk/build-tools/19.1.0"
+          ls "$HOME/android-sdk/build-tools/19.1.0"
 
       - name: Manually install SDK Platform android-10
         run: |
@@ -52,6 +52,11 @@ jobs:
           EXTRACTED_DIR=$(ls extracted | head -n 1)
           mv "extracted/$EXTRACTED_DIR" "$HOME/android-sdk/platforms/android-10"
           ls "$HOME/android-sdk/platforms/android-10"
+
+      - name: Verify SDK contents before build
+        run: |
+          echo "--- ANDROID_HOME: $ANDROID_HOME ---"
+          find "$HOME/android-sdk" -maxdepth 3
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
