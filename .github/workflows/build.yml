@@ -62,7 +62,8 @@ jobs:
         run: |
           sudo dpkg --add-architecture i386
           sudo apt-get update
-          sudo apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 zlib1g:i386
+          sudo apt-get install -y libc6:i386 libstdc++6:i386 zlib1g:i386
+          sudo apt-get install -y libtinfo5:i386 || sudo apt-get install -y libncurses6:i386 || echo "no ncurses-compat package found, continuing"
 
       - name: Ensure build-tools binaries are executable
         run: |
