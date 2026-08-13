@@ -38,9 +38,14 @@ jobs:
         run: |
           mkdir -p "$HOME/android-sdk/platforms"
           cd /tmp
-          curl -sSL -o android-10.zip https://dl.google.com/android/repository/android-2.3.3_r02-linux.zip
-          unzip -q android-10.zip
-          mv android-2.3.3_r02 "$HOME/android-sdk/platforms/android-10"
+          curl -f -sSL -o android-10.zip https://dl.google.com/android/repository/android-2.3.3_r02-linux.zip
+          echo "--- curl exit code: $? ---"
+          ls -la android-10.zip
+          unzip -q android-10.zip -d extracted
+          echo "--- extracted contents: ---"
+          ls -la extracted
+          EXTRACTED_DIR=$(ls extracted | head -n 1)
+          mv "extracted/$EXTRACTED_DIR" "$HOME/android-sdk/platforms/android-10"
           ls "$HOME/android-sdk/platforms/android-10"
 
       - name: Grant execute permission for gradlew
