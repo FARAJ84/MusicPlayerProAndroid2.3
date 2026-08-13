@@ -29,10 +29,19 @@ jobs:
           echo "$HOME/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
           echo "$HOME/android-sdk/platform-tools" >> $GITHUB_PATH
 
-      - name: Install SDK Platform 10 and Build-Tools 17.0.0
+      - name: Install Build-Tools 17.0.0 via sdkmanager
         run: |
-          yes | sdkmanager --sdk_root="$HOME/android-sdk" "platforms;android-10" "build-tools;17.0.0" || true
+          yes | sdkmanager --sdk_root="$HOME/android-sdk" "build-tools;17.0.0" || true
           ls "$HOME/android-sdk/build-tools" || echo "build-tools dir missing"
+
+      - name: Manually install SDK Platform android-10
+        run: |
+          mkdir -p "$HOME/android-sdk/platforms"
+          cd /tmp
+          curl -sSL -o android-10.zip https://dl.google.com/android/repository/android-2.3.3_r02-linux.zip
+          unzip -q android-10.zip
+          mv android-2.3.3_r02 "$HOME/android-sdk/platforms/android-10"
+          ls "$HOME/android-sdk/platforms/android-10"
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
