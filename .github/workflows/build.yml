@@ -18,21 +18,26 @@ jobs:
           distribution: 'temurin'
           java-version: '8'
 
-      - name: Set up old Android SDK components
+      - name: Set ANDROID_HOME environment variable
         run: |
-          mkdir -p "$HOME/android-sdk/cmdline-tools"
-          cd "$HOME/android-sdk/cmdline-tools"
-          curl -sSL -o cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
-          unzip -q cmdline-tools.zip
-          mv cmdline-tools latest
+          mkdir -p "$HOME/android-sdk"
           echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
-          echo "$HOME/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
+          echo "ANDROID_SDK_ROOT=$HOME/android-sdk" >> $GITHUB_ENV
           echo "$HOME/android-sdk/platform-tools" >> $GITHUB_PATH
 
-      - name: Install Build-Tools 17.0.0 via sdkmanager
+      - name: Manually install Build-Tools 17.0.0
         run: |
-          yes | sdkmanager --sdk_root="$HOME/android-sdk" "build-tools;17.0.0" || true
-          ls "$HOME/android-sdk/build-tools" || echo "build-tools dir missing"
+          mkdir -p "$HOME/android-sdk/build-tools"
+          cd /tmp
+          curl -f -sSL -o build-tools-17.zip https://dl.google.com/android/repository/build-tools_r17-linux.zip
+          echo "--- curl exit code: $? ---"
+          ls -la build-tools-17.zip
+          unzip -q build-tools-17.zip -d bt_extracted
+          echo "--- extracted contents: ---"
+          ls -la bt_extracted
+          BT_DIR=$(ls bt_extracted | head -n 1)
+          mv "bt_extracted/$BT_DIR" "$HOME/android-sdk/build-tools/17.0.0"
+          ls "$HOME/android-sdk/build-tools/17.0.0"
 
       - name: Manually install SDK Platform android-10
         run: |
