@@ -58,6 +58,17 @@ jobs:
           echo "--- ANDROID_HOME: $ANDROID_HOME ---"
           find "$HOME/android-sdk" -maxdepth 3
 
+      - name: Install 32-bit compatibility libraries for old aapt
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt-get install -y libc6:i386 libncurses5:i386 libstdc++6:i386 zlib1g:i386
+
+      - name: Ensure build-tools binaries are executable
+        run: |
+          chmod +x "$HOME/android-sdk/build-tools/19.1.0/"*
+          "$HOME/android-sdk/build-tools/19.1.0/aapt" version
+
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
