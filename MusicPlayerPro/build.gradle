@@ -1,0 +1,25 @@
+// Root build.gradle
+// NOTE: This project intentionally uses an OLD Android Gradle Plugin (1.5.0)
+// because modern AGP (3.0+) refuses to build against API 10 (Gingerbread).
+// You must use Android Studio 2.x or older / Eclipse ADT, NOT current Android Studio,
+// unless you manually install an old AGP + old Gradle wrapper alongside it.
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
+    }
+    dependencies {
+        // Last AGP versions that still allow minSdk/targetSdk as low as 10
+        classpath 'com.android.tools.build:gradle:1.5.0'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url 'https://maven.google.com' }
+    }
+}
