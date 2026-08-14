@@ -45,8 +45,7 @@
             android:id="@+id/shuffleButton"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@android:drawable/ic_menu_rotate"
-            android:alpha="120" />
+            android:src="@android:drawable/ic_menu_rotate" />
 
         <Button
             android:id="@+id/prevButton"
@@ -73,8 +72,7 @@
             android:id="@+id/repeatButton"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@android:drawable/ic_menu_revert"
-            android:alpha="120" />
+            android:src="@android:drawable/ic_menu_revert" />
 
     </LinearLayout>
 
