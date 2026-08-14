@@ -3,17 +3,29 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#000000"
-    android:padding="8dp">
+    android:padding="6dp">
+
+    <EditText
+        android:id="@+id/searchBox"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:hint="Search songs..."
+        android:singleLine="true"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#777777"
+        android:padding="6dp" />
 
     <TextView
         android:id="@+id/nowPlayingText"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/searchBox"
         android:text="Nothing playing"
         android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:padding="6dp" />
+        android:textSize="15sp"
+        android:padding="6dp"
+        android:singleLine="true" />
 
     <SeekBar
         android:id="@+id/seekBar"
@@ -29,6 +41,13 @@
         android:orientation="horizontal"
         android:gravity="center">
 
+        <ImageView
+            android:id="@+id/shuffleButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@android:drawable/ic_menu_rotate"
+            android:alpha="120" />
+
         <Button
             android:id="@+id/prevButton"
             android:layout_width="0dp"
@@ -41,7 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Play/Pause" />
+            android:text="Play" />
 
         <Button
             android:id="@+id/nextButton"
@@ -49,6 +68,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Next" />
+
+        <ImageView
+            android:id="@+id/repeatButton"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@android:drawable/ic_menu_revert"
+            android:alpha="120" />
+
     </LinearLayout>
 
     <ListView
@@ -56,6 +83,15 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/controlsLayout"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="6dp" />
+
+    <ProgressBar
+        android:id="@+id/loadingSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/controlsLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:visibility="gone" />
 
 </RelativeLayout>
