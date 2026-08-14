@@ -99,6 +99,11 @@ public class MainActivity extends Activity implements PlaybackService.PlaybackLi
 
         setupListeners(nextButton, prevButton);
 
+        // android:alpha in XML isn't supported on API 10, so the initial
+        // dimmed state has to be set here in code instead.
+        updateShuffleIcon(false);
+        updateRepeatIcon(PlaybackService.REPEAT_OFF);
+
         // Scanning MediaStore on a single-core 832MHz CPU can take a
         // noticeable moment on first run (before the SQLite cache exists).
         // Doing this on the UI thread would risk an ANR dialog, so it
